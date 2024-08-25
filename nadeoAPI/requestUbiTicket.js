@@ -13,13 +13,13 @@ let config = {
 };
 
 async function requestUbiTicket() {
+  let response;
   try {
-    const response = await axios.request(config);
-    console.log(response.data);
+    response = await axios.request(config);
   } catch (error) {
     console.error(error);
   }
-  return response.data.ticket;
+  return response.data.ticket
 }
 
 module.exports = {requestUbiTicket}

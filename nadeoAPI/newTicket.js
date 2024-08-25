@@ -5,6 +5,11 @@
 const { requestNadeoToken } = require("./requestToken");
 const { requestUbiTicket } = require("./requestUbiTicket");
 
-const ticket = await requestUbiTicket();
-requestNadeoToken(ticket);
+async function newTicket(client, discordToken) {
+    client.destroy(); // log out while getting new tokens
+    const ticket = await requestUbiTicket();
+    await requestNadeoToken(ticket);
+    client.login(discordToken);
+}
 
+module.exports = {newTicket}

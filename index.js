@@ -2,6 +2,8 @@ require('dotenv').config()
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
+const { newTicket } = require('./nadeoAPI/newTicket');
+
 
 const client = new Client({
     intents: [
@@ -52,8 +54,8 @@ let fiveam = new Date();
 fiveam.setDate(fiveam.getDate + 1);
 fiveam.setHours(3,0,0) // 5am when summertime, 4am when not
 const timeoutID = setTimeout(() => {
-	requestUbiTIcket();
-	const intervalID = setInterval(requestUbiTIcket, 86400000);
+	newTicket(client, process.env.DISCORD_TOKEN)
+	const intervalID = setInterval(() => {newTicket(client, process.env.DISCORD_TOKEN)}, 86400000);
 }, fiveam.getTime() - Date.now())
 
 client.login(process.env.DISCORD_TOKEN);
