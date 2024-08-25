@@ -12,12 +12,14 @@ let config = {
   }
 };
 
-axios.request(config)
-.then((response) => {
-  console.log(JSON.stringify(response.data));
-})
-.catch((error) => {
-  console.log(error);
-});
+async function requestUbiTicket() {
+  try {
+    const response = await axios.request(config);
+    console.log(response.data);
+  } catch (error) {
+    console.error(error);
+  }
+  return response.data.ticket;
+}
 
-console.log(config)
+module.exports = {requestUbiTicket}
