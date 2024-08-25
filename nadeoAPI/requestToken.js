@@ -21,22 +21,16 @@ let config = {
   data : data
 };
 
-function requestNadeoToken() {
-   axios.request(config)
-    .then((response) => {
-        console.log('requested tokens for the Nadeo API');
-        let tokens =  response.data;
-        tokens.accessExpiry = JSON.stringify(Date.now());
-        try {
-          fs.writeFileSync(jsonPath, JSON.stringify(tokens));  
-        } catch (error) {
-            console.error(error);
-        }
-
-    })
-    .catch((error) => {
-    console.log(error);
-    });
+async function requestNadeoToken() {
+  try {
+    const response = await axios.request(config);
+    console.log('requested tokens for the Nadeo API');
+    let tokens = response.data
+    tokens.accessExpiry = JSON.stringify(Date.now());
+    fs.writeFileSync(jsonPath, JSON.stringify(tokens));
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 module.exports = {requestNadeoToken}
