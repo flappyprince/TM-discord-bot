@@ -52,7 +52,7 @@ for (const file of eventFiles) {
 
 let fiveam = new Date();
 fiveam.setDate(fiveam.getDate() + 1);
-fiveam.setHours(3,0,0) // 5am when summertime, 4am when not
+fiveam.setHours(5,0,0) 
 const timeoutID = setTimeout(() => {
 	newTicket(client, process.env.DISCORD_TOKEN)
 	const intervalID = setInterval(() => {newTicket(client, process.env.DISCORD_TOKEN)}, 86400000);
