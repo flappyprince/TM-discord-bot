@@ -5,12 +5,10 @@
 const { requestNadeoToken } = require("./requestToken");
 const { requestUbiTicket } = require("./requestUbiTicket");
 
-async function newTicket(client, discordToken) {
-    client.destroy(); // log out while getting new tokens
+async function newTicket() {
     console.log('doing authcycle')
     const ticket = await requestUbiTicket();
     await requestNadeoToken(ticket);
-    client.login(discordToken);
 }
 
 module.exports = {newTicket}
