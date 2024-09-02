@@ -4,6 +4,12 @@ const path = require('node:path');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const { newTicket } = require('./nadeoAPI/newTicket');
 
+function timeSinceAuthCycle() {
+	const tokenPath = path.join(__dirname, 'nadeoAPI', 'tokens.json');
+	const tokens = fs.readFileSync(tokenPath, 'utf8')
+    const accessExpiry = parseInt(JSON.parse(tokens).accessExpiry);
+	return Date.now() - accessExpiry;
+}
 
 const client = new Client({
     intents: [
@@ -50,12 +56,17 @@ for (const file of eventFiles) {
 	}
 }
 
+// if more than 11 hours since last authcycle, do one now
+if(timeSinceAuthCycle() > 40000000) {
+	newTicket();
+}
+
 let fiveam = new Date();
 fiveam.setDate(fiveam.getDate() + 1);
-fiveam.setHours(5,0,0) 
+fiveam.setHours(5,0,0)
 const timeoutID = setTimeout(() => {
-	newTicket(client, process.env.DISCORD_TOKEN)
-	const intervalID = setInterval(() => {newTicket(client, process.env.DISCORD_TOKEN)}, 86400000);
+	newTicket();
+	const intervalID = setInterval(newTicket, 86400000);
 }, fiveam.getTime() - Date.now())
 
 client.login(process.env.DISCORD_TOKEN);

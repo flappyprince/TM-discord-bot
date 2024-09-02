@@ -21,8 +21,6 @@ async function requestNadeoToken(ticket) {
     },
     data : data
   };
-
-
  
   try {
     const response = await axios.request(config);
