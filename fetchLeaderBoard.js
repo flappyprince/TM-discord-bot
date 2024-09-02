@@ -87,7 +87,6 @@ function formatLeaderboard(records) {
         obj.name = getPlayerName(record.accountId);
         obj.medal = record.medal;
         obj.time = record.recordScore.time;
-        obj.ghostlink = record.url;
         leaderboard.push(obj);
     });
 

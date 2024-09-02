@@ -34,15 +34,6 @@ function longestNamelength(leaderboard) {
 	});
 	return longestNamelength;
 }
-
-function extraSpaces(name, maxlength) {
-	let diff = maxlength - name.length;
-	// special case because his name uses characters that takes up so little space 
-	// may have to find a way to measure the number of pixels a name takes up
-	//if(name == "Vazyriqx") diff += 2; 
-	return invisibleWhitespaces(diff)
-}
-
 function msToTime(timeMs) {
   let ms = timeMs % 1000;
   timeMs = (timeMs - ms) / 1000;
@@ -70,8 +61,8 @@ function leaderBoardString(leaderboard) {
 	leaderboard.forEach(record => {
 		leaderboardString += (emojiMedal(record.medal) + invisibleWhitespaces(2));
 		leaderboardString += (msToTime(record.time) + invisibleWhitespaces(4));
-		leaderboardString += (capitalizeFirstLetter(record.name) + invisibleWhitespaces(2) + extraSpaces(record.name, maxNamelength));
-		leaderboardString += ('[⭳](' + record.ghostlink + ')' + '\n');
+		leaderboardString += (capitalizeFirstLetter(record.name));
+		leaderboardString += '\r\n';
 	});
 	return leaderboardString;
 }
@@ -113,7 +104,7 @@ function leaderBoardEmbed(leaderboard, map) {
         const table = leaderBoardString(leaderboard);
 		// the u1CBC show up as a box on mobile devices, but i have yet to find another character that isn't just 
 		// stripped at the start of a field, which makes the title not line up with the fields
-        const title = '\u1CBC' + '\u1CBC' + '\u1CBC' + '\u1CBC' + `Time${invisibleWhitespaces(8)}User${invisibleWhitespaces(9)}⭳`;
+        const title = '\u1CBC' + '\u1CBC' + '\u1CBC' + '\u1CBC' + `Time${invisibleWhitespaces(8)}User`;
         embed.addFields({ name: title, value: table });
 		embed.setColor(0xff990a) // orange
     }
