@@ -74,7 +74,7 @@ function leaderBoardString(leaderboard) {
 function invisibleWhitespaces(n) {
 	let whitespaceStr = ''
 	for (let index = 0; index < n; index++) {
-		whitespaceStr += '\u1CBC';
+		whitespaceStr += '\u2000';
 	}
 	return whitespaceStr;
 }
@@ -106,7 +106,9 @@ function leaderBoardEmbed(leaderboard, map) {
 		embed.setColor(0xff0000) // error red
     } else {
         const table = leaderBoardString(leaderboard);
-        const title = `${invisibleWhitespaces(4)}Time${invisibleWhitespaces(8)}User${invisibleWhitespaces(9)}⭳`;
+		// the u1CBC show up as a box on mobile devices, but i have yet to find another character that isn't just 
+		// stripped at the start of a field, which makes the title not line up with the fields
+        const title = '\u1CBC' + '\u1CBC' + '\u1CBC' + '\u1CBC' + `Time${invisibleWhitespaces(8)}User${invisibleWhitespaces(9)}⭳`;
         embed.addFields({ name: title, value: table });
 		embed.setColor(0xff990a) // orange
     }
