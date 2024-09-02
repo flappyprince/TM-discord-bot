@@ -4,6 +4,11 @@ const fs = require('fs');
 function emojiMedal(medal) {
 	let emojiString = "";
 	switch(medal) {
+		case 0: // no medal
+			// U+2005 is a midspace, this combination
+			// seems to be about equal to the space of a medal emoji
+			emojiString = '\u2005' + invisibleWhitespaces(2);
+			break;
 		case 1:
 			emojiString = "<:bronze:1259375720749203476>";
 			break;
