@@ -1,0 +1,8 @@
+*.json
+.env
+/node_modules
+writetojsontest.json
+!package.json
+!trackmania campaign S24.json
+manualRefresh.js
+readtest
