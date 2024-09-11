@@ -14,12 +14,18 @@ let config = {
 
 async function requestUbiTicket() {
   let response;
-  try {
-    response = await axios.request(config);
+  let retries = 0;
+  while(retries < 5) {
+    try {
+      response = await axios.request(config);
+      break;
   } catch (error) {
-    console.error(error);
+      console.error(error);
+      retries++;
+      await new Promise(resolve => setTimeout(resolve, 30000));
+    }
+    return response.data.ticket
   }
-  return response.data.ticket
 }
 
 module.exports = {requestUbiTicket}
