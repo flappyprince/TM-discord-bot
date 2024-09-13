@@ -1,12 +1,10 @@
 require('dotenv').config()
 
 const axios = require('axios');
-const FormData = require('form-data');
 const fs = require('fs');
 const path = require('node:path');
 
 jsonPath = path.join(__dirname,'tokens.json');
-let data = new FormData();
 
 async function requestNadeoToken(ticket) {
   let config = {
@@ -17,9 +15,7 @@ async function requestNadeoToken(ticket) {
       'Content-Type': 'application/json',
       'User-Agent': `Leaderboard retrival test / ${process.env.UBISOFT_EMAIL}`,
       'Authorization': `ubi_v1 t=${ticket}`, 
-      ...data.getHeaders()
-    },
-    data : data
+    }
   };
  
   try {
